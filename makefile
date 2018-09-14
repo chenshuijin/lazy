@@ -1,5 +1,5 @@
 VERSION?=0.0.1
-
+PROJECTEXEC=github.com/go-ray/lazy/cmd/...
 COMMIT=$(shell git rev-parse HEAD)
 BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 
@@ -33,8 +33,8 @@ dep:
 	dep ensure -v
 
 build:
-	cd cmd/$(BINARY); go build $(LDFLAGS) -o $(OUTPUT)/$(BINARY)
-
+#	cd cmd/$(BINARY); go build $(LDFLAGS) -o $(OUTPUT)/$(BINARY)
+	go build $(LDFLAGS) -o $(OUTPUT)/$(BINARY) $(PROJECTEXEC)
 test:
 	env GOCACHE=off go test ./... 2>&1 | tee $(TEST_REPORT); go2xunit -fail -input $(TEST_REPORT) -output $(TEST_XUNIT_REPORT)
 
